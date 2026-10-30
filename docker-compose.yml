@@ -1,0 +1,21 @@
+# PostgreSQL local para el ejemplo:  docker compose up -d
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: jdbccrud-postgres
+    environment:
+      POSTGRES_DB: jdbccrud
+      POSTGRES_USER: jdbccrud
+      POSTGRES_PASSWORD: jdbccrud
+    ports:
+      - "5432:5432"
+    volumes:
+      - pg-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U jdbccrud -d jdbccrud"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+volumes:
+  pg-data:
