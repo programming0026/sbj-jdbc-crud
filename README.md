@@ -64,7 +64,7 @@ src/main/java/com/juniverse/jdbccrud/
 ├── model/        # Product, Category, PageResult, CategoryStock (records)
 ├── repository/   # ProductRepository (JdbcClient), ProductBatchRepository (JdbcTemplate), CategoryRepository (SimpleJdbcInsert)
 ├── service/      # ProductService (@Transactional)
-├── web/          # ProductController, CategoryController
+├── controller/   # ProductController, CategoryController
 └── exception/    # excepciones de negocio y ApiExceptionHandler
 src/main/resources/ schema.sql, data.sql, application.properties
 ```

@@ -1,4 +1,4 @@
-package com.juniverse.jdbccrud.web;
+package com.juniverse.jdbccrud.controller;
 
 import com.juniverse.jdbccrud.model.Category;
 import com.juniverse.jdbccrud.repository.CategoryRepository;

@@ -169,12 +169,6 @@ public class ProductRepository {
                 .param("id", id).param("delta", delta).update();
     }
 
-    /**
-     * Indica si existe un producto.
-     *
-     * @param id identificador
-     * @return {@code true} si existe
-     */
     public boolean exists(long id) {
         return jdbc.sql("select exists(select 1 from products where id = :id)").param("id", id).query(Boolean.class).single();
     }
