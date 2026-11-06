@@ -1,19 +1,16 @@
 package com.juniverse.jdbccrud.controller;
 
+import com.juniverse.jdbccrud.dto.ImportRequest;
+import com.juniverse.jdbccrud.dto.ProductRequest;
+import com.juniverse.jdbccrud.dto.StockRequest;
+import com.juniverse.jdbccrud.dto.TransferRequest;
+import com.juniverse.jdbccrud.dto.UpdateRequest;
 import com.juniverse.jdbccrud.model.CategoryStock;
 import com.juniverse.jdbccrud.model.PageResult;
 import com.juniverse.jdbccrud.model.Product;
 import com.juniverse.jdbccrud.repository.ProductBatchRepository.NewProduct;
 import com.juniverse.jdbccrud.service.ProductService;
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.DecimalMin;
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Pattern;
-import jakarta.validation.constraints.Size;
-import java.math.BigDecimal;
 import java.net.URI;
 import java.util.List;
 import java.util.Map;
@@ -35,60 +32,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api/products")
 public class ProductController {
-
-    /**
-     * Datos para crear un producto.
-     *
-     * @param sku código (mayúsculas, dígitos y guiones)
-     * @param name nombre
-     * @param description descripción opcional
-     * @param price precio
-     * @param stock existencias
-     * @param categoryId categoría
-     */
-    public record ProductRequest(
-            @NotBlank(message = "El SKU es obligatorio") @Pattern(regexp = "[A-Z0-9-]{3,30}", message = "El SKU admite mayúsculas, dígitos y guiones (3 a 30)") String sku,
-            @NotBlank(message = "El nombre es obligatorio") @Size(max = 120, message = "El nombre no puede superar los 120 caracteres") String name,
-            @Size(max = 500, message = "La descripción no puede superar los 500 caracteres") String description,
-            @NotNull(message = "El precio es obligatorio") @DecimalMin(value = "0.00", message = "El precio no puede ser negativo") BigDecimal price,
-            @Min(value = 0, message = "El stock no puede ser negativo") int stock,
-            @NotNull(message = "La categoría es obligatoria") Long categoryId) {
-    }
-
-    /**
-     * Datos para reemplazar un producto: los mismos campos más la versión que el cliente leyó.
-     *
-     * @param version versión leída (control optimista)
-     * @param product nuevos datos
-     */
-    public record UpdateRequest(@Min(value = 0, message = "La versión es obligatoria") int version, @Valid @NotNull ProductRequest product) {
-    }
-
-    /**
-     * Ajuste de existencias.
-     *
-     * @param delta cantidad a sumar (negativa para una salida)
-     */
-    public record StockRequest(@NotNull(message = "delta es obligatorio") Integer delta) {
-    }
-
-    /**
-     * Movimiento de existencias entre dos productos.
-     *
-     * @param fromId origen
-     * @param toId destino
-     * @param quantity unidades
-     */
-    public record TransferRequest(@NotNull Long fromId, @NotNull Long toId, @Min(value = 1, message = "La cantidad mínima es 1") int quantity) {
-    }
-
-    /**
-     * Lote de productos a importar.
-     *
-     * @param products productos
-     */
-    public record ImportRequest(@NotEmpty(message = "Envía al menos un producto") List<@Valid ProductRequest> products) {
-    }
 
     private final ProductService service;
 

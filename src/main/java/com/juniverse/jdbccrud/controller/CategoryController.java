@@ -1,10 +1,9 @@
 package com.juniverse.jdbccrud.controller;
 
+import com.juniverse.jdbccrud.dto.CategoryRequest;
 import com.juniverse.jdbccrud.model.Category;
 import com.juniverse.jdbccrud.repository.CategoryRepository;
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
 import java.net.URI;
 import java.util.List;
 import org.springframework.http.ResponseEntity;
@@ -18,14 +17,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api/categories")
 public class CategoryController {
-
-    /**
-     * Datos para crear una categoría.
-     *
-     * @param name nombre
-     */
-    public record CategoryRequest(@NotBlank(message = "El nombre es obligatorio") @Size(max = 80, message = "El nombre no puede superar los 80 caracteres") String name) {
-    }
 
     private final CategoryRepository repository;
 

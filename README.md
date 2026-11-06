@@ -62,6 +62,7 @@ Errores en formato Problem Details: 400 (validación), 404, 409 (SKU duplicado, 
 src/main/java/com/juniverse/jdbccrud/
 ├── JdbcCrudApplication.java
 ├── model/        # Product, Category, PageResult, CategoryStock (records)
+├── dto/          # ProductRequest, UpdateRequest, StockRequest, TransferRequest, ImportRequest, CategoryRequest
 ├── repository/   # ProductRepository (JdbcClient), ProductBatchRepository (JdbcTemplate), CategoryRepository (SimpleJdbcInsert)
 ├── service/      # ProductService (@Transactional)
 ├── controller/   # ProductController, CategoryController
